@@ -1,3 +1,11 @@
 {
-    "cSpell.words": ["tseslint"]
+    "cSpell.words": ["tseslint"],
+    "prettier.tabWidth": 4,
+    "[javascript][typescript][typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnPaste": false,
+        "editor.formatOnType": false,
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file"
+    },
 }

@@ -4,6 +4,7 @@ import Input from "@mui/joy/Input";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Stack from "@mui/joy/Stack";
+import Switch from "@mui/joy/Switch";
 
 enum Unit {
     INFANTRY = "Infantry",
@@ -15,6 +16,11 @@ enum Unit {
     DREADNOUGHT = "Dreadnought",
     FLAGSHIP = "Flagship",
     WAR_SUN = "War Sun",
+}
+
+enum Mode {
+    CALCULATOR,
+    BUDGET,
 }
 
 function getUnitCost(unit: Unit): number {
@@ -70,7 +76,7 @@ function getHalfCost(count: number): number {
 function getTotalCost(state: CalculatorState): number {
     return Array.from(state).reduce(
         (acc, [a, b]) =>
-            a == Unit.INFANTRY || a == Unit.FIGHTER
+            a === Unit.INFANTRY || a === Unit.FIGHTER
                 ? acc + getHalfCost(b)
                 : acc + getUnitCost(a) * b,
         0
@@ -81,12 +87,32 @@ function getTotalCapacity(state: CalculatorState): number {
     return Array.from(state).reduce((acc, [, b]) => acc + b, 0);
 }
 
+function getFleetSupplyRemaining(
+    currentFleetSupply: number,
+    maxFleetSupply: number,
+    state: CalculatorState
+) {
+    return Array.from(state).reduce(
+        (acc, [a, b]) =>
+            a === Unit.INFANTRY || a === Unit.FIGHTER || a === Unit.MECH
+                ? acc
+                : acc - b,
+        maxFleetSupply - currentFleetSupply
+    );
+}
+
 type UnitCounterProps = {
     unit: Unit;
     unitCost: number;
     unitCount: number;
     imgPath: string;
     onChange: (count: number, unit: Unit) => void;
+};
+
+type BudgetInputProps = {
+    label: string;
+    value: number;
+    onChange: (value: number) => void;
 };
 
 function makeUnitData(
@@ -128,10 +154,29 @@ function UnitCounter(props: UnitCounterProps) {
     );
 }
 
+function BudgetInput(props: BudgetInputProps) {
+    return (
+        <Stack direction="row" spacing={1}>
+            <Typography level="h4">{props.label}</Typography>
+            <Input
+                type="number"
+                value={props.value}
+                onChange={(event) => props.onChange(Number(event.target.value))}
+            />
+        </Stack>
+    );
+}
+
 export default function Calculator() {
     const [state, setState] = useState<CalculatorState>(
         new Map(Object.values(Unit).map((unit) => [unit, 0]))
     );
+
+    const [mode, setMode] = useState(Mode.CALCULATOR);
+    const [resourceBudget, setResourceBudget] = useState(0);
+    const [capacityBudget, setCapacityBudget] = useState(0);
+    const [currentFleetSupply, setCurrentFleetSupply] = useState(0);
+    const [maxFleetSupply, setMaxFleetSupply] = useState(0);
 
     function handleUnitCountChange(count: number, unit: Unit) {
         const newState = new Map(state);
@@ -139,16 +184,100 @@ export default function Calculator() {
         setState(newState);
     }
 
+    function getToggleColor(mode: Mode) {
+        switch (mode) {
+            case Mode.CALCULATOR:
+                return "primary";
+            case Mode.BUDGET:
+                return "danger";
+        }
+    }
+
+    function getToggleState(mode: Mode) {
+        switch (mode) {
+            case Mode.CALCULATOR:
+                return false;
+            case Mode.BUDGET:
+                return true;
+        }
+    }
+
+    function handleModeChange(mode: Mode) {
+        switch (mode) {
+            case Mode.CALCULATOR:
+                return Mode.BUDGET;
+            case Mode.BUDGET:
+                return Mode.CALCULATOR;
+        }
+    }
+
     return (
         <div>
-            <Typography level="h4">{`Total Cost: ${getTotalCost(
-                state
-            )}`}</Typography>
-            <Typography level="h4">{`Total Capacity: ${getTotalCapacity(
-                state
-            )}`}</Typography>
-            {Object.values(Unit).map((unit) => (
+            <Switch
+                color={getToggleColor(mode)}
+                checked={getToggleState(mode)}
+                startDecorator={<Typography>Calculator</Typography>}
+                endDecorator={<Typography>Budget</Typography>}
+                onChange={() => setMode(handleModeChange(mode))}
+            />
+
+            {mode === Mode.BUDGET && (
+                <Box>
+                    <Typography level="h4">
+                        {`Resources Remaining: ${
+                            resourceBudget - getTotalCost(state)
+                        }`}
+                    </Typography>
+                    <Typography level="h4">
+                        {`Capacity Remaining: ${
+                            capacityBudget - getTotalCapacity(state)
+                        }`}
+                    </Typography>
+                    <Typography level="h4">
+                        {`Fleet Supply Remaining: ${getFleetSupplyRemaining(
+                            currentFleetSupply,
+                            maxFleetSupply,
+                            state
+                        )}`}
+                    </Typography>
+
+                    <BudgetInput
+                        label="Resource Budget"
+                        value={resourceBudget}
+                        onChange={setResourceBudget}
+                    />
+                    <BudgetInput
+                        label="Capacity Budget"
+                        value={capacityBudget}
+                        onChange={setCapacityBudget}
+                    />
+                    <BudgetInput
+                        label="Current Fleet Supply"
+                        value={currentFleetSupply}
+                        onChange={setCurrentFleetSupply}
+                    />
+                    <BudgetInput
+                        label="Max Fleet Supply"
+                        value={maxFleetSupply}
+                        onChange={setMaxFleetSupply}
+                    />
+                </Box>
+            )}
+
+            {mode === Mode.CALCULATOR && (
+                <Box>
+                    <Typography level="h4">
+                        {`Total Cost: ${getTotalCost(state)}`}
+                    </Typography>
+                    <Typography level="h4">
+                        {`Total Capacity: ${getTotalCapacity(state)}`}
+                    </Typography>
+                </Box>
+            )}
+
+            {Object.values(Unit).map((unit, i) => (
                 <UnitCounter
+                    key={i}
                     {...makeUnitData(unit, state, handleUnitCountChange)}
                 />
             ))}
