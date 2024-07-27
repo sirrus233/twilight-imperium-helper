@@ -6,7 +6,7 @@ import Drawer from "@mui/joy/Drawer";
 import List from "@mui/joy/List";
 import ListItemButton from "@mui/joy/ListItemButton";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Calculator from "./Calculator";
+import ProductionHelper from "./Calculator";
 
 export default function App() {
     return (
@@ -25,7 +25,7 @@ export default function App() {
 function Home() {
     return (
         <div>
-            <Calculator />
+            <ProductionHelper />
         </div>
     );
 }
