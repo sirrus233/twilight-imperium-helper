@@ -1,0 +1,39 @@
+{
+    "name": "twilight-imperium-helper",
+    "version": "0.1.0",
+    "description": "Helper app for playing Twilight Imperium.",
+    "main": "index.js",
+    "scripts": {
+        "start": "webpack serve --port 3000",
+        "build": "NODE_ENV=production webpack",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "npx eslint ."
+    },
+    "author": "Bradley Sherman && Chelsea Schmidt",
+    "license": "ISC",
+    "devDependencies": {
+        "@eslint/js": "^9.8.0",
+        "@types/eslint__js": "^8.42.3",
+        "@types/react": "^18.3.3",
+        "@types/react-dom": "^18.3.0",
+        "css-loader": "^7.1.2",
+        "eslint": "^8.57.0",
+        "html-webpack-plugin": "^5.6.0",
+        "mini-css-extract-plugin": "^2.9.0",
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.4.5",
+        "typescript-eslint": "^7.17.0",
+        "webpack": "^5.92.0",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^5.0.4"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.13.0",
+        "@emotion/styled": "^11.13.0",
+        "@mui/joy": "^5.0.0-beta.36",
+        "@mui/material": "^5.16.5",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^6.23.1"
+    }
+}
