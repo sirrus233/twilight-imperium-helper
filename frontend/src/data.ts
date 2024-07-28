@@ -1,3 +1,13 @@
+import carrierImgPath from "./images/carrier.png";
+import cruiserImgPath from "./images/cruiser.png";
+import destroyerImgPath from "./images/destroyer.png";
+import dreadnoughtImgPath from "./images/dreadnought.png";
+import fighterImgPath from "./images/fighter.png";
+import flagshipImgPath from "./images/flagship.png";
+import infantryImgPath from "./images/infantry.png";
+import mechImgPath from "./images/mech.png";
+import warSunImgPath from "./images/war-sun.png";
+
 export enum Unit {
     INFANTRY = "Infantry",
     FIGHTER = "Fighter",
@@ -41,23 +51,23 @@ export function getUnitCost(unit: Unit): number {
 export function getImgPath(unit: Unit): string {
     switch (unit) {
         case Unit.INFANTRY:
-            return "";
+            return infantryImgPath;
         case Unit.FIGHTER:
-            return "";
+            return fighterImgPath;
         case Unit.DESTROYER:
-            return "";
+            return destroyerImgPath;
         case Unit.MECH:
-            return "";
+            return mechImgPath;
         case Unit.CRUISER:
-            return "";
+            return cruiserImgPath;
         case Unit.CARRIER:
-            return "";
+            return carrierImgPath;
         case Unit.DREADNOUGHT:
-            return "";
+            return dreadnoughtImgPath;
         case Unit.FLAGSHIP:
-            return "";
+            return flagshipImgPath;
         case Unit.WAR_SUN:
-            return "";
+            return warSunImgPath;
     }
 }
 

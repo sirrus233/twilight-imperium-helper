@@ -21,8 +21,20 @@ export function UnitCounter({
     onChange,
 }: Props) {
     return (
-        <Stack direction="row" spacing={1}>
-            <Box component="img" alt={unit} src={imgPath} />
+        <Stack direction="row" spacing={1} alignItems="center">
+            <Typography
+                level="body-xs"
+                startDecorator={
+                    <Box
+                        component="img"
+                        alt={unit}
+                        src={imgPath}
+                        maxWidth={44}
+                    />
+                }
+            >
+                {unit}
+            </Typography>
             <Typography level="h4">{unitCost}</Typography>
             <Input
                 type="number"
