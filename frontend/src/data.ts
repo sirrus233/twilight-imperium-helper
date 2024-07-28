@@ -1,12 +1,12 @@
-import carrierImgPath from "./images/carrier.png";
-import cruiserImgPath from "./images/cruiser.png";
-import destroyerImgPath from "./images/destroyer.png";
-import dreadnoughtImgPath from "./images/dreadnought.png";
-import fighterImgPath from "./images/fighter.png";
-import flagshipImgPath from "./images/flagship.png";
-import infantryImgPath from "./images/infantry.png";
-import mechImgPath from "./images/mech.png";
-import warSunImgPath from "./images/war-sun.png";
+import carrierImgPath from "./assets/carrier.png";
+import cruiserImgPath from "./assets/cruiser.png";
+import destroyerImgPath from "./assets/destroyer.png";
+import dreadnoughtImgPath from "./assets/dreadnought.png";
+import fighterImgPath from "./assets/fighter.png";
+import flagshipImgPath from "./assets/flagship.png";
+import infantryImgPath from "./assets/infantry.png";
+import mechImgPath from "./assets/mech.png";
+import warSunImgPath from "./assets/war-sun.png";
 
 export enum Unit {
     INFANTRY = "Infantry",
