@@ -21,9 +21,24 @@ export function UnitCounter({
     onChange,
 }: Props) {
     return (
-        <Stack direction="row" spacing={1}>
-            <Box component="img" alt={unit} src={imgPath} />
-            <Typography level="h4">{unitCost}</Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+            <Box
+                component="img"
+                alt={unit}
+                src={imgPath}
+                maxWidth={44}
+                minWidth={20}
+            />
+            <Typography
+                level="body-xs"
+                minWidth={80}
+                display={{ xs: "none", sm: "block" }}
+            >
+                {unit}
+            </Typography>
+            <Typography level="h4" maxWidth="3em" minWidth="2em">
+                {unitCost}
+            </Typography>
             <Input
                 type="number"
                 value={unitCount}
@@ -35,6 +50,10 @@ export function UnitCounter({
                     },
                 }}
                 onChange={(event) => onChange(Number(event.target.value), unit)}
+                sx={{
+                    maxWidth: "4em",
+                    minWidth: "4em",
+                }}
             />
         </Stack>
     );
