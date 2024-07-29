@@ -1,20 +1,19 @@
-import * as React from "react";
-import Typography from "@mui/joy/Typography";
 import { getTotalCapacity, getTotalCost, UnitCounts } from "./data";
+import { DisplayField } from "./DisplayField";
 
 interface Props {
     unitCounts: UnitCounts;
 }
 
 export function CalculatorModeDisplay({ unitCounts }: Props) {
-    return (
-        <>
-            <Typography level="h4">
-                {`Total Cost: ${getTotalCost(unitCounts)}`}
-            </Typography>
-            <Typography level="h4">
-                {`Total Capacity: ${getTotalCapacity(unitCounts)}`}
-            </Typography>
-        </>
-    );
+    return [
+        {
+            label: "Total Cost",
+            value: getTotalCost(unitCounts),
+        },
+        {
+            label: "Total Capacity",
+            value: getTotalCapacity(unitCounts),
+        },
+    ].map(DisplayField);
 }

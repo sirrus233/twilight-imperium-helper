@@ -1,11 +1,10 @@
-import * as React from "react";
-import Typography from "@mui/joy/Typography";
 import {
     getFleetSupplyRemaining,
     getTotalCapacity,
     getTotalCost,
     UnitCounts,
 } from "./data";
+import { DisplayField } from "./DisplayField";
 
 interface Props {
     resourceBudget: number;
@@ -22,25 +21,22 @@ export function BudgetModeDisplay({
     maxFleetSupply,
     unitCounts,
 }: Props) {
-    return (
-        <>
-            <Typography level="h4">
-                {`Resources Remaining: ${
-                    resourceBudget - getTotalCost(unitCounts)
-                }`}
-            </Typography>
-            <Typography level="h4">
-                {`Capacity Remaining: ${
-                    capacityBudget - getTotalCapacity(unitCounts)
-                }`}
-            </Typography>
-            <Typography level="h4">
-                {`Fleet Supply Remaining: ${getFleetSupplyRemaining(
-                    currentFleetSupply,
-                    maxFleetSupply,
-                    unitCounts
-                )}`}
-            </Typography>
-        </>
-    );
+    return [
+        {
+            label: "Resources Remaining",
+            value: resourceBudget - getTotalCost(unitCounts),
+        },
+        {
+            label: "Capacity Remaining",
+            value: capacityBudget - getTotalCapacity(unitCounts),
+        },
+        {
+            label: "Fleet Supply Remaining",
+            value: getFleetSupplyRemaining(
+                currentFleetSupply,
+                maxFleetSupply,
+                unitCounts
+            ),
+        },
+    ].map(DisplayField);
 }
