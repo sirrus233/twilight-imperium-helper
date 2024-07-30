@@ -1,4 +1,5 @@
 import {
+    getFighterCount,
     getFleetSupplyRemaining,
     getTotalCapacity,
     getTotalCost,
@@ -12,6 +13,10 @@ interface Props {
     currentFleetSupply: number;
     maxFleetSupply: number;
     unitCounts: UnitCounts;
+    isFighterUpgraded: boolean;
+    shipCapacityUsed: number;
+    maxShipCapacity: number;
+    spaceDockFighterBonus: number;
 }
 
 export function BudgetModeDisplay({
@@ -20,14 +25,24 @@ export function BudgetModeDisplay({
     currentFleetSupply,
     maxFleetSupply,
     unitCounts,
+    isFighterUpgraded,
+    shipCapacityUsed,
+    maxShipCapacity,
+    spaceDockFighterBonus,
 }: Props) {
+    const shipCapacityRemaining =
+        maxShipCapacity +
+        spaceDockFighterBonus -
+        shipCapacityUsed -
+        getFighterCount(unitCounts);
+
     return [
         {
             label: "Resources Remaining",
             value: resourceBudget - getTotalCost(unitCounts),
         },
         {
-            label: "Capacity Remaining",
+            label: "Production Capacity Remaining",
             value: capacityBudget - getTotalCapacity(unitCounts),
         },
         {
@@ -35,8 +50,15 @@ export function BudgetModeDisplay({
             value: getFleetSupplyRemaining(
                 currentFleetSupply,
                 maxFleetSupply,
-                unitCounts
+                unitCounts,
+                isFighterUpgraded ? Math.max(0 - shipCapacityRemaining, 0) : 0
             ),
+        },
+        {
+            label: "Ship Capacity Remaining",
+            value: isFighterUpgraded
+                ? Math.max(shipCapacityRemaining, 0)
+                : shipCapacityRemaining,
         },
     ].map(DisplayField);
 }
