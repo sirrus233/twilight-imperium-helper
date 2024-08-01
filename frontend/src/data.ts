@@ -104,7 +104,7 @@ export function getFleetSupplyRemaining(
     currentFleetSupply: number,
     maxFleetSupply: number,
     unitCounts: UnitCounts,
-    airborneFighterCount: number
+    unsupportedFighters: number
 ) {
     const shipCount = sumUnitCounts(
         unitCounts,
@@ -115,6 +115,6 @@ export function getFleetSupplyRemaining(
     );
 
     return (
-        maxFleetSupply - currentFleetSupply - shipCount - airborneFighterCount
+        maxFleetSupply - currentFleetSupply - shipCount - unsupportedFighters
     );
 }
