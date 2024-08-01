@@ -58,9 +58,10 @@ export function BudgetModeDisplay({
         },
         {
             label: "Fighter Capacity Remaining",
-            value: isFighterUpgraded
-                ? Math.max(fighterCapacityRemaining, 0)
-                : fighterCapacityRemaining,
+            value:
+                isFighterUpgraded && fighterCapacityRemaining < 0
+                    ? 0
+                    : fighterCapacityRemaining,
         },
     ].map(DisplayField);
 }
