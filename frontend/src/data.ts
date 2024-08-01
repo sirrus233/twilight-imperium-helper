@@ -87,18 +87,17 @@ export function getTotalCost(unitCounts: UnitCounts): number {
     );
 }
 
-function sumUnitCountEntries(unitCountEntries: [Unit, number][]): number {
-    return unitCountEntries.reduce((sum, [, count]) => sum + count, 0);
-}
-
-export function getTotalCapacity(unitCounts: UnitCounts): number {
-    return sumUnitCountEntries(Array.from(unitCounts));
+export function sumUnitCounts(
+    unitCounts: UnitCounts,
+    unitFilter: (unit: Unit) => boolean = () => true
+): number {
+    return Array.from(unitCounts)
+        .filter(([unit]) => unitFilter(unit))
+        .reduce((sum, [, count]) => sum + count, 0);
 }
 
 export function getFighterCount(unitCounts: UnitCounts): number {
-    return sumUnitCountEntries(
-        Array.from(unitCounts).filter(([unit]) => unit === Unit.FIGHTER)
-    );
+    return sumUnitCounts(unitCounts, (unit) => unit === Unit.FIGHTER);
 }
 
 export function getFleetSupplyRemaining(
@@ -107,13 +106,12 @@ export function getFleetSupplyRemaining(
     unitCounts: UnitCounts,
     airborneFighterCount: number
 ) {
-    const shipCount = sumUnitCountEntries(
-        Array.from(unitCounts).filter(
-            ([unit]) =>
-                unit !== Unit.INFANTRY &&
-                unit !== Unit.FIGHTER &&
-                unit !== Unit.MECH
-        )
+    const shipCount = sumUnitCounts(
+        unitCounts,
+        (unit) =>
+            unit !== Unit.INFANTRY &&
+            unit !== Unit.FIGHTER &&
+            unit !== Unit.MECH
     );
 
     return (

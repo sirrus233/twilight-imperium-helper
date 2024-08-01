@@ -1,4 +1,4 @@
-import { getTotalCapacity, getTotalCost, UnitCounts } from "./data";
+import { getTotalCost, sumUnitCounts, UnitCounts } from "./data";
 import { DisplayField } from "./DisplayField";
 
 interface Props {
@@ -13,7 +13,7 @@ export function CalculatorModeDisplay({ unitCounts }: Props) {
         },
         {
             label: "Total Capacity",
-            value: getTotalCapacity(unitCounts),
+            value: sumUnitCounts(unitCounts),
         },
     ].map(DisplayField);
 }

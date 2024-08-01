@@ -1,8 +1,8 @@
 import {
     getFighterCount,
     getFleetSupplyRemaining,
-    getTotalCapacity,
     getTotalCost,
+    sumUnitCounts,
     UnitCounts,
 } from "./data";
 import { DisplayField } from "./DisplayField";
@@ -43,7 +43,7 @@ export function BudgetModeDisplay({
         },
         {
             label: "Production Capacity Remaining",
-            value: capacityBudget - getTotalCapacity(unitCounts),
+            value: capacityBudget - sumUnitCounts(unitCounts),
         },
         {
             label: "Fleet Supply Remaining",
