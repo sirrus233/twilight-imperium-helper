@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
 import Box from "@mui/joy/Box";
-import Checkbox from "@mui/joy/Checkbox";
 import { ModeToggle } from "./ModeToggle";
 import { Unit, Mode, getUnitCost, getImgPath, UnitCounts } from "./data";
 import { UnitCounter } from "./UnitCounter";
@@ -69,19 +68,14 @@ export default function ProductionHelper() {
                             setCurrentFleetSupply={setCurrentFleetSupply}
                             maxFleetSupply={maxFleetSupply}
                             setMaxFleetSupply={setMaxFleetSupply}
+                            isFighterUpgraded={isFighterUpgraded}
+                            setIsFighterUpgraded={setIsFighterUpgraded}
                             shipCapacityUsed={shipCapacityUsed}
                             setShipCapacityUsed={setShipCapacityUsed}
                             maxShipCapacity={maxShipCapacity}
                             setMaxShipCapacity={setMaxShipCapacity}
                             spaceDockFighterBonus={spaceDockFighterBonus}
                             setSpaceDockFighterBonus={setSpaceDockFighterBonus}
-                        />
-                        <Checkbox
-                            label="Fighter II"
-                            checked={isFighterUpgraded}
-                            onChange={() =>
-                                setIsFighterUpgraded(!isFighterUpgraded)
-                            }
                         />
                     </Box>
                 );

@@ -1,4 +1,5 @@
 import * as React from "react";
+import Checkbox from "@mui/joy/Checkbox";
 import { BudgetInput } from "./BudgetInput";
 
 interface Props {
@@ -10,6 +11,8 @@ interface Props {
     setCurrentFleetSupply: (value: number) => void;
     maxFleetSupply: number;
     setMaxFleetSupply: (value: number) => void;
+    isFighterUpgraded: boolean;
+    setIsFighterUpgraded: (value: boolean) => void;
     shipCapacityUsed: number;
     setShipCapacityUsed: (value: number) => void;
     maxShipCapacity: number;
@@ -27,6 +30,8 @@ export function BudgetModeInputs({
     setCurrentFleetSupply,
     maxFleetSupply,
     setMaxFleetSupply,
+    isFighterUpgraded,
+    setIsFighterUpgraded,
     shipCapacityUsed,
     setShipCapacityUsed,
     maxShipCapacity,
@@ -70,6 +75,11 @@ export function BudgetModeInputs({
                 label="Space Dock Fighter Bonus"
                 value={spaceDockFighterBonus}
                 onChange={setSpaceDockFighterBonus}
+            />
+            <Checkbox
+                label="Fighter II"
+                checked={isFighterUpgraded}
+                onChange={() => setIsFighterUpgraded(!isFighterUpgraded)}
             />
         </>
     );
