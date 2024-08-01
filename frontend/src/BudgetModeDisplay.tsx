@@ -36,6 +36,11 @@ export function BudgetModeDisplay({
         shipCapacityUsed -
         getFighterCount(unitCounts);
 
+    const unsupportedFighters =
+        isFighterUpgraded && fighterCapacityRemaining < 0
+            ? Math.abs(fighterCapacityRemaining)
+            : 0;
+
     return [
         {
             label: "Resources Remaining",
@@ -51,17 +56,12 @@ export function BudgetModeDisplay({
                 currentFleetSupply,
                 maxFleetSupply,
                 unitCounts,
-                isFighterUpgraded && fighterCapacityRemaining < 0
-                    ? Math.abs(fighterCapacityRemaining)
-                    : 0
+                unsupportedFighters
             ),
         },
         {
             label: "Fighter Capacity Remaining",
-            value:
-                isFighterUpgraded && fighterCapacityRemaining < 0
-                    ? 0
-                    : fighterCapacityRemaining,
+            value: unsupportedFighters ? 0 : fighterCapacityRemaining,
         },
     ].map(DisplayField);
 }
