@@ -17,6 +17,10 @@ export default function ProductionHelper() {
     const [capacityBudget, setCapacityBudget] = useState(0);
     const [currentFleetSupply, setCurrentFleetSupply] = useState(0);
     const [maxFleetSupply, setMaxFleetSupply] = useState(0);
+    const [isFighterUpgraded, setIsFighterUpgraded] = useState(false);
+    const [shipCapacityUsed, setShipCapacityUsed] = useState(0);
+    const [maxShipCapacity, setMaxShipCapacity] = useState(0);
+    const [spaceDockFighterBonus, setSpaceDockFighterBonus] = useState(0);
 
     function handleModeChange() {
         switch (mode) {
@@ -50,6 +54,10 @@ export default function ProductionHelper() {
                             currentFleetSupply={currentFleetSupply}
                             maxFleetSupply={maxFleetSupply}
                             unitCounts={unitCounts}
+                            isFighterUpgraded={isFighterUpgraded}
+                            shipCapacityUsed={shipCapacityUsed}
+                            maxShipCapacity={maxShipCapacity}
+                            spaceDockFighterBonus={spaceDockFighterBonus}
                         />
                         <BudgetModeInputs
                             resourceBudget={resourceBudget}
@@ -60,6 +68,14 @@ export default function ProductionHelper() {
                             setCurrentFleetSupply={setCurrentFleetSupply}
                             maxFleetSupply={maxFleetSupply}
                             setMaxFleetSupply={setMaxFleetSupply}
+                            isFighterUpgraded={isFighterUpgraded}
+                            setIsFighterUpgraded={setIsFighterUpgraded}
+                            shipCapacityUsed={shipCapacityUsed}
+                            setShipCapacityUsed={setShipCapacityUsed}
+                            maxShipCapacity={maxShipCapacity}
+                            setMaxShipCapacity={setMaxShipCapacity}
+                            spaceDockFighterBonus={spaceDockFighterBonus}
+                            setSpaceDockFighterBonus={setSpaceDockFighterBonus}
                         />
                     </Box>
                 );

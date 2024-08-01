@@ -1,4 +1,5 @@
 import * as React from "react";
+import Checkbox from "@mui/joy/Checkbox";
 import { BudgetInput } from "./BudgetInput";
 
 interface Props {
@@ -10,6 +11,14 @@ interface Props {
     setCurrentFleetSupply: (value: number) => void;
     maxFleetSupply: number;
     setMaxFleetSupply: (value: number) => void;
+    isFighterUpgraded: boolean;
+    setIsFighterUpgraded: (value: boolean) => void;
+    shipCapacityUsed: number;
+    setShipCapacityUsed: (value: number) => void;
+    maxShipCapacity: number;
+    setMaxShipCapacity: (value: number) => void;
+    spaceDockFighterBonus: number;
+    setSpaceDockFighterBonus: (value: number) => void;
 }
 
 export function BudgetModeInputs({
@@ -21,6 +30,14 @@ export function BudgetModeInputs({
     setCurrentFleetSupply,
     maxFleetSupply,
     setMaxFleetSupply,
+    isFighterUpgraded,
+    setIsFighterUpgraded,
+    shipCapacityUsed,
+    setShipCapacityUsed,
+    maxShipCapacity,
+    setMaxShipCapacity,
+    spaceDockFighterBonus,
+    setSpaceDockFighterBonus,
 }: Props) {
     return (
         <>
@@ -43,6 +60,26 @@ export function BudgetModeInputs({
                 label="Max Fleet Supply"
                 value={maxFleetSupply}
                 onChange={setMaxFleetSupply}
+            />
+            <BudgetInput
+                label="Ship Capacity Used"
+                value={shipCapacityUsed}
+                onChange={setShipCapacityUsed}
+            />
+            <BudgetInput
+                label="Max Ship Capacity"
+                value={maxShipCapacity}
+                onChange={setMaxShipCapacity}
+            />
+            <BudgetInput
+                label="Space Dock Fighter Bonus"
+                value={spaceDockFighterBonus}
+                onChange={setSpaceDockFighterBonus}
+            />
+            <Checkbox
+                label="Fighter II"
+                checked={isFighterUpgraded}
+                onChange={() => setIsFighterUpgraded(!isFighterUpgraded)}
             />
         </>
     );
