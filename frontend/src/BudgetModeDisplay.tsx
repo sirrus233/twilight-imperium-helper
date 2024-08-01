@@ -30,7 +30,7 @@ export function BudgetModeDisplay({
     maxShipCapacity,
     spaceDockFighterBonus,
 }: Props) {
-    const shipCapacityRemaining =
+    const fighterCapacityRemaining =
         maxShipCapacity +
         spaceDockFighterBonus -
         shipCapacityUsed -
@@ -51,14 +51,16 @@ export function BudgetModeDisplay({
                 currentFleetSupply,
                 maxFleetSupply,
                 unitCounts,
-                isFighterUpgraded ? Math.max(0 - shipCapacityRemaining, 0) : 0
+                isFighterUpgraded
+                    ? Math.max(0 - fighterCapacityRemaining, 0)
+                    : 0
             ),
         },
         {
-            label: "Ship Capacity Remaining",
+            label: "Fighter Capacity Remaining",
             value: isFighterUpgraded
-                ? Math.max(shipCapacityRemaining, 0)
-                : shipCapacityRemaining,
+                ? Math.max(fighterCapacityRemaining, 0)
+                : fighterCapacityRemaining,
         },
     ].map(DisplayField);
 }
