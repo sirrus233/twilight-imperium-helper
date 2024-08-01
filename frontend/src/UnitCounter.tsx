@@ -1,9 +1,9 @@
 import * as React from "react";
-import Input from "@mui/joy/Input";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 import Stack from "@mui/joy/Stack";
 import { Unit } from "./data";
+import { InputStepper } from "./InputStepper";
 
 interface Props {
     unit: Unit;
@@ -36,24 +36,20 @@ export function UnitCounter({
             >
                 {unit}
             </Typography>
-            <Typography level="h4" maxWidth="3em" minWidth="2em">
-                {unitCost}
+            <Typography
+                level="body-md"
+                textAlign="center"
+                maxWidth="3em"
+                minWidth="2em"
+            >
+                {`${unitCost}r`}
             </Typography>
-            <Input
-                type="number"
+            <InputStepper
                 value={unitCount}
-                slotProps={{
-                    input: {
-                        min: 0,
-                        max: 99,
-                        step: 1,
-                    },
-                }}
-                onChange={(event) => onChange(Number(event.target.value), unit)}
-                sx={{
-                    maxWidth: "4em",
-                    minWidth: "4em",
-                }}
+                min={0}
+                max={99}
+                step={1}
+                onChange={(value) => onChange(value, unit)}
             />
         </Stack>
     );
