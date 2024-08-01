@@ -51,8 +51,8 @@ export function BudgetModeDisplay({
                 currentFleetSupply,
                 maxFleetSupply,
                 unitCounts,
-                isFighterUpgraded
-                    ? Math.max(0 - fighterCapacityRemaining, 0)
+                isFighterUpgraded && fighterCapacityRemaining < 0
+                    ? Math.abs(fighterCapacityRemaining)
                     : 0
             ),
         },
