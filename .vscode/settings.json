@@ -1,5 +1,10 @@
 {
-    "cSpell.words": ["tseslint"],
+    "cSpell.words": [
+        "bradleysherman",
+        "certificatemanager",
+        "tseslint",
+        "twilightimperiumtools"
+    ],
     "prettier.tabWidth": 4,
     "[javascript][typescript][typescriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -8,4 +13,5 @@
         "editor.formatOnSave": true,
         "editor.formatOnSaveMode": "file"
     },
+    "material-icon-theme.folders.associations": { "infrastructure": "Aws" }
 }
