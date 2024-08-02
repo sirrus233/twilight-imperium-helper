@@ -6,7 +6,7 @@ import Drawer from "@mui/joy/Drawer";
 import List from "@mui/joy/List";
 import ListItemButton from "@mui/joy/ListItemButton";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import ProductionHelper from "./Calculator";
+import ProductionHelper from "./ProductionHelper";
 
 const theme = extendTheme({
     breakpoints: {
