@@ -11,5 +11,5 @@
         "outDir": "./dist",
         "moduleResolution": "bundler"
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*", "tests/**/*"]
 }
