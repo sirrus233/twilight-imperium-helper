@@ -20,7 +20,7 @@ export class InfrastructureStack extends cdk.Stack {
         const certificate = certificatemanager.Certificate.fromCertificateArn(
             this,
             "Certificate",
-            "arn:aws:acm:us-east-1:017820696103:certificate/63a14c79-436a-41f1-ba63-97ef6ba60e59"
+            "arn:aws:acm:us-east-1:017820696103:certificate/631cc256-a281-462d-bf9f-695e815759ec"
         );
 
         const distribution = new cloudfront.Distribution(this, "Distribution", {
@@ -32,8 +32,8 @@ export class InfrastructureStack extends cdk.Stack {
             },
             certificate: certificate,
             domainNames: [
-                "*.twilightimperiumtools.bradleysherman.net",
                 "twilightimperiumtools.bradleysherman.net",
+                "*.twilightimperiumtools.bradleysherman.net",
             ],
         });
 
