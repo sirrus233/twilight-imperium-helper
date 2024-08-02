@@ -20,7 +20,7 @@ export default function ProductionHelper() {
     const [unitCounts, setUnitCounts] = useState<UnitCounts>(
         new Map(Object.values(Unit).map((unit) => [unit, 0]))
     );
-    const [mode, setMode] = useState(Mode.BUDGET);
+    const [mode, setMode] = useState(Mode.CALCULATOR);
     const [budgetFilters, setBudgetFilters] = useState(
         new Set([BudgetFilter.RESOURCES])
     );
