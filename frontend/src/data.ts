@@ -25,6 +25,13 @@ export enum Mode {
     BUDGET,
 }
 
+export enum BudgetFilter {
+    RESOURCES = "Resources",
+    PRODUCTION_LIMIT = "Production limit",
+    FLEET_SUPPLY = "Fleet supply",
+    SHIP_CAPACITY = "Ship capacity",
+}
+
 export function getUnitCost(unit: Unit): number {
     switch (unit) {
         case Unit.INFANTRY:
