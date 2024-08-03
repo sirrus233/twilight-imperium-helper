@@ -22,7 +22,7 @@ export default function ProductionHelper() {
     );
     const [mode, setMode] = useState(Mode.CALCULATOR);
     const [budgetFilters, setBudgetFilters] = useState(
-        new Set([BudgetFilter.RESOURCES])
+        new Set([BudgetFilter.RESOURCES, BudgetFilter.PRODUCTION_LIMIT])
     );
     const [resourceBudget, setResourceBudget] = useState(0);
     const [capacityBudget, setCapacityBudget] = useState(0);
