@@ -2,17 +2,28 @@ import * as React from "react";
 import { useState } from "react";
 import Box from "@mui/joy/Box";
 import { ModeToggle } from "./ModeToggle";
-import { Unit, Mode, getUnitCost, getImgPath, UnitCounts } from "./data";
+import {
+    Unit,
+    Mode,
+    getUnitCost,
+    getImgPath,
+    UnitCounts,
+    BudgetFilter,
+} from "./data";
 import { UnitCounter } from "./UnitCounter";
 import { BudgetModeDisplay } from "./BudgetModeDisplay";
 import { BudgetModeInputs } from "./BudgetModeInputs";
 import { CalculatorModeDisplay } from "./CalculatorModeDisplay";
+import BudgetFilters from "./BudgetFilters";
 
 export default function ProductionHelper() {
     const [unitCounts, setUnitCounts] = useState<UnitCounts>(
         new Map(Object.values(Unit).map((unit) => [unit, 0]))
     );
     const [mode, setMode] = useState(Mode.CALCULATOR);
+    const [budgetFilters, setBudgetFilters] = useState(
+        new Set([BudgetFilter.RESOURCES, BudgetFilter.PRODUCTION_LIMIT])
+    );
     const [resourceBudget, setResourceBudget] = useState(0);
     const [capacityBudget, setCapacityBudget] = useState(0);
     const [currentFleetSupply, setCurrentFleetSupply] = useState(0);
@@ -37,6 +48,18 @@ export default function ProductionHelper() {
         setUnitCounts(newState);
     }
 
+    function handleBudgetFilterChange(
+        checked: boolean,
+        budgetFilter: BudgetFilter
+    ) {
+        const newState = new Set(budgetFilters);
+
+        if (checked) newState.add(budgetFilter);
+        else newState.delete(budgetFilter);
+
+        setBudgetFilters(newState);
+    }
+
     function Calculator() {
         switch (mode) {
             case Mode.CALCULATOR:
@@ -48,7 +71,12 @@ export default function ProductionHelper() {
             case Mode.BUDGET:
                 return (
                     <Box>
+                        <BudgetFilters
+                            budgetFilters={budgetFilters}
+                            onChange={handleBudgetFilterChange}
+                        />
                         <BudgetModeDisplay
+                            budgetFilters={budgetFilters}
                             resourceBudget={resourceBudget}
                             capacityBudget={capacityBudget}
                             currentFleetSupply={currentFleetSupply}
@@ -60,6 +88,7 @@ export default function ProductionHelper() {
                             spaceDockFighterBonus={spaceDockFighterBonus}
                         />
                         <BudgetModeInputs
+                            budgetFilters={budgetFilters}
                             resourceBudget={resourceBudget}
                             setResourceBudget={setResourceBudget}
                             capacityBudget={capacityBudget}

@@ -2,12 +2,14 @@ import {
     getFighterCount,
     getFleetSupplyRemaining,
     getTotalCost,
+    BudgetFilter,
     sumUnitCounts,
     UnitCounts,
 } from "./data";
 import { DisplayField } from "./DisplayField";
 
 interface Props {
+    budgetFilters: Set<BudgetFilter>;
     resourceBudget: number;
     capacityBudget: number;
     currentFleetSupply: number;
@@ -20,6 +22,7 @@ interface Props {
 }
 
 export function BudgetModeDisplay({
+    budgetFilters,
     resourceBudget,
     capacityBudget,
     currentFleetSupply,
@@ -45,10 +48,12 @@ export function BudgetModeDisplay({
         {
             label: "Resources Remaining",
             value: resourceBudget - getTotalCost(unitCounts),
+            visible: budgetFilters.has(BudgetFilter.RESOURCES),
         },
         {
             label: "Production Capacity Remaining",
             value: capacityBudget - sumUnitCounts(unitCounts),
+            visible: budgetFilters.has(BudgetFilter.PRODUCTION_LIMIT),
         },
         {
             label: "Fleet Supply Remaining",
@@ -58,10 +63,12 @@ export function BudgetModeDisplay({
                 unitCounts,
                 unsupportedFighters
             ),
+            visible: budgetFilters.has(BudgetFilter.FLEET_SUPPLY),
         },
         {
             label: "Fighter Capacity Remaining",
             value: unsupportedFighters ? 0 : fighterCapacityRemaining,
+            visible: budgetFilters.has(BudgetFilter.SHIP_CAPACITY),
         },
     ].map(DisplayField);
 }
