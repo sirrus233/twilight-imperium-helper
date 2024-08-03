@@ -48,7 +48,7 @@ export default function ProductionHelper() {
         setUnitCounts(newState);
     }
 
-    function handleBudgetFiltersChange(
+    function handleBudgetFilterChange(
         checked: boolean,
         budgetFilter: BudgetFilter
     ) {
@@ -73,7 +73,7 @@ export default function ProductionHelper() {
                     <Box>
                         <BudgetFilters
                             budgetFilters={budgetFilters}
-                            onChange={handleBudgetFiltersChange}
+                            onChange={handleBudgetFilterChange}
                         />
                         <BudgetModeDisplay
                             budgetFilters={budgetFilters}
