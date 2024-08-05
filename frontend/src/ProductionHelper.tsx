@@ -11,10 +11,9 @@ import {
     BudgetFilter,
 } from "./data";
 import { UnitCounter } from "./UnitCounter";
-import { BudgetModeDisplay } from "./BudgetModeDisplay";
-import { BudgetModeInputs } from "./BudgetModeInputs";
 import { CalculatorModeDisplay } from "./CalculatorModeDisplay";
 import BudgetFilters from "./BudgetFilters";
+import { BudgetCard } from "./BudgetCard";
 
 export default function ProductionHelper() {
     const [unitCounts, setUnitCounts] = useState<UnitCounts>(
@@ -75,19 +74,8 @@ export default function ProductionHelper() {
                             budgetFilters={budgetFilters}
                             onChange={handleBudgetFilterChange}
                         />
-                        <BudgetModeDisplay
-                            budgetFilters={budgetFilters}
-                            resourceBudget={resourceBudget}
-                            capacityBudget={capacityBudget}
-                            currentFleetSupply={currentFleetSupply}
-                            maxFleetSupply={maxFleetSupply}
+                        <BudgetCard
                             unitCounts={unitCounts}
-                            isFighterUpgraded={isFighterUpgraded}
-                            shipCapacityUsed={shipCapacityUsed}
-                            maxShipCapacity={maxShipCapacity}
-                            spaceDockFighterBonus={spaceDockFighterBonus}
-                        />
-                        <BudgetModeInputs
                             budgetFilters={budgetFilters}
                             resourceBudget={resourceBudget}
                             setResourceBudget={setResourceBudget}
