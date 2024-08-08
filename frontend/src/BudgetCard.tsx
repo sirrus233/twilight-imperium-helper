@@ -77,7 +77,6 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
                                 <HeaderLabel text="Resources" />
                                 <BudgetInput
                                     label="Resource Budget"
-                                    isLabelVisible={false}
                                     value={resourceBudget}
                                     onChange={setResourceBudget}
                                 />
@@ -96,7 +95,6 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
                                 <HeaderLabel text="Production Limit" />
                                 <BudgetInput
                                     label="Production Limit Budget"
-                                    isLabelVisible={false}
                                     value={capacityBudget}
                                     onChange={setCapacityBudget}
                                 />
@@ -115,13 +113,11 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
                                 <HeaderLabel text="Fleet Supply" />
                                 <BudgetInput
                                     label="Fleet Supply Budget"
-                                    isLabelVisible={false}
                                     value={maxFleetSupply}
                                     onChange={setMaxFleetSupply}
                                 />
                                 <BudgetInput
                                     label="Reserved Fleet Supply"
-                                    isLabelVisible={false}
                                     value={currentFleetSupply}
                                     onChange={setCurrentFleetSupply}
                                 />
@@ -141,13 +137,11 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
                                 <HeaderLabel text="Fighter Capacity" />
                                 <BudgetInput
                                     label="Fighter Capacity Budget"
-                                    isLabelVisible={false}
                                     value={maxShipCapacity}
                                     onChange={setMaxShipCapacity}
                                 />
                                 <BudgetInput
                                     label="Reserved Fighter Capacity"
-                                    isLabelVisible={false}
                                     value={shipCapacityUsed}
                                     onChange={setShipCapacityUsed}
                                 />
@@ -173,6 +167,7 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
                                 />,
                                 <BudgetInput
                                     label="Space Dock Fighter Bonus"
+                                    isLabelVisible
                                     value={spaceDockFighterBonus}
                                     onChange={setSpaceDockFighterBonus}
                                 />,

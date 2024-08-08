@@ -12,7 +12,7 @@ interface Props {
 
 export function BudgetInput({
     label,
-    isLabelVisible = true,
+    isLabelVisible = false,
     value,
     onChange,
 }: Props) {
