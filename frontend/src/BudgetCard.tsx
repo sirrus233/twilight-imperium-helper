@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
+import Stack from "@mui/joy/Stack";
 import Card from "@mui/joy/Card";
 import Checkbox from "@mui/joy/Checkbox";
 import Grid from "@mui/joy/Grid";
@@ -16,6 +17,7 @@ import {
 import { OverUnderNumber } from "./OverUnderNumber";
 import { GridCell } from "./GridCell";
 import { BudgetRow } from "./BudgetRow";
+import { InfoIcon } from "./InfoIcon";
 
 interface Props {
     unitCounts: UnitCounts;
@@ -68,7 +70,10 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
                         <BudgetRow hiddenColumns={hiddenColumns}>
                             <div />
                             <HeaderLabel text="Budget" />
-                            <HeaderLabel text="In Use" />
+                            <Stack direction="row">
+                                <HeaderLabel text="In Use" />
+                                <InfoIcon text="Capacity already in use before beginning production" />
+                            </Stack>
                             <HeaderLabel text="Remaining" />
                         </BudgetRow>
 
