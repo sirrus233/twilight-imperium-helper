@@ -48,10 +48,13 @@ function DrawerNavigation() {
     return (
         <>
             <IconButton
-                variant="solid"
+                variant="outlined"
                 color="primary"
                 onClick={() => setOpen(true)}
-            />
+                sx={{ mb: 2, p: 1 }}
+            >
+                Menu
+            </IconButton>
             <Drawer open={open} onClose={() => setOpen(false)}>
                 <List
                     size="lg"
