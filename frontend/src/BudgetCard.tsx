@@ -3,7 +3,6 @@ import { useState } from "react";
 import Stack from "@mui/joy/Stack";
 import Card from "@mui/joy/Card";
 import Checkbox from "@mui/joy/Checkbox";
-import Grid from "@mui/joy/Grid";
 import Typography from "@mui/joy/Typography";
 import { BudgetInput } from "./BudgetInput";
 import {
@@ -15,9 +14,8 @@ import {
     UnitCounts,
 } from "./data";
 import { OverUnderNumber } from "./OverUnderNumber";
-import { GridCell } from "./GridCell";
-import { BudgetRow } from "./BudgetRow";
 import { InfoIcon } from "./InfoIcon";
+import { SameSizedRowGrid } from "./SameSizedRowGrid";
 
 interface Props {
     unitCounts: UnitCounts;
@@ -49,144 +47,135 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
         budgetFilters.has(BudgetFilter.FLEET_SUPPLY) ||
         budgetFilters.has(BudgetFilter.SHIP_CAPACITY);
 
-    const numColumns = 4;
-
-    const hiddenColumns: Set<number> = inAdvancedMode
-        ? new Set()
-        : new Set([2]);
+    const gridProps = {
+        columnSpacing: 1,
+        rowSpacing: 2,
+        alignItems: "center",
+        sx: { flexGrow: 1 },
+    };
 
     return (
         <Card sx={{ mb: 2, maxWidth: "600px" }} variant="plain">
-            <Grid
-                container
-                columnSpacing={1}
-                rowSpacing={2}
-                columns={numColumns - hiddenColumns.size}
-                alignItems="center"
-                sx={{ flexGrow: 1 }}
-            >
-                {
-                    <>
-                        <BudgetRow hiddenColumns={hiddenColumns}>
-                            <div />
-                            <HeaderLabel text="Budget" />
-                            <Stack direction="row">
-                                <HeaderLabel text="In Use" />
-                                <InfoIcon text="Capacity already in use before beginning production" />
-                            </Stack>
-                            <HeaderLabel text="Remaining" />
-                        </BudgetRow>
+            <SameSizedRowGrid
+                hiddenColumns={inAdvancedMode ? [] : [2]}
+                gridProps={gridProps}
+                rows={[
+                    [
+                        <div />,
+                        <HeaderLabel text="Budget" />,
+                        <Stack direction="row">
+                            <HeaderLabel text="In Use" />
+                            <InfoIcon text="Capacity already in use before beginning production" />
+                        </Stack>,
+                        <HeaderLabel text="Remaining" />,
+                    ],
 
-                        {budgetFilters.has(BudgetFilter.RESOURCES) && (
-                            <BudgetRow hiddenColumns={hiddenColumns}>
-                                <HeaderLabel text="Resources" />
-                                <BudgetInput
-                                    label="Resource Budget"
-                                    value={resourceBudget}
-                                    onChange={setResourceBudget}
-                                />
-                                <div />
-                                <OverUnderNumber
-                                    value={
-                                        resourceBudget -
-                                        getTotalCost(unitCounts)
-                                    }
-                                />
-                            </BudgetRow>
-                        )}
+                    budgetFilters.has(BudgetFilter.RESOURCES)
+                        ? [
+                              <HeaderLabel text="Resources" />,
+                              <BudgetInput
+                                  label="Resource Budget"
+                                  value={resourceBudget}
+                                  onChange={setResourceBudget}
+                              />,
+                              <div />,
+                              <OverUnderNumber
+                                  value={
+                                      resourceBudget - getTotalCost(unitCounts)
+                                  }
+                              />,
+                          ]
+                        : null,
 
-                        {budgetFilters.has(BudgetFilter.PRODUCTION_LIMIT) && (
-                            <BudgetRow hiddenColumns={hiddenColumns}>
-                                <HeaderLabel text="Production Limit" />
-                                <BudgetInput
-                                    label="Production Limit Budget"
-                                    value={capacityBudget}
-                                    onChange={setCapacityBudget}
-                                />
-                                <div />
-                                <OverUnderNumber
-                                    value={
-                                        capacityBudget -
-                                        sumUnitCounts(unitCounts)
-                                    }
-                                />
-                            </BudgetRow>
-                        )}
+                    budgetFilters.has(BudgetFilter.PRODUCTION_LIMIT)
+                        ? [
+                              <HeaderLabel text="Production Limit" />,
+                              <BudgetInput
+                                  label="Production Limit Budget"
+                                  value={capacityBudget}
+                                  onChange={setCapacityBudget}
+                              />,
+                              <div />,
+                              <OverUnderNumber
+                                  value={
+                                      capacityBudget - sumUnitCounts(unitCounts)
+                                  }
+                              />,
+                          ]
+                        : null,
 
-                        {budgetFilters.has(BudgetFilter.FLEET_SUPPLY) && (
-                            <BudgetRow hiddenColumns={hiddenColumns}>
-                                <HeaderLabel text="Fleet Supply" />
-                                <BudgetInput
-                                    label="Fleet Supply Budget"
-                                    value={maxFleetSupply}
-                                    onChange={setMaxFleetSupply}
-                                />
-                                <BudgetInput
-                                    label="Fleet Supply In Use"
-                                    value={currentFleetSupply}
-                                    onChange={setCurrentFleetSupply}
-                                />
-                                <OverUnderNumber
-                                    value={getFleetSupplyRemaining(
-                                        currentFleetSupply,
-                                        maxFleetSupply,
-                                        unitCounts,
-                                        unsupportedFighters
-                                    )}
-                                />
-                            </BudgetRow>
-                        )}
+                    budgetFilters.has(BudgetFilter.FLEET_SUPPLY)
+                        ? [
+                              <HeaderLabel text="Fleet Supply" />,
+                              <BudgetInput
+                                  label="Fleet Supply Budget"
+                                  value={maxFleetSupply}
+                                  onChange={setMaxFleetSupply}
+                              />,
+                              <BudgetInput
+                                  label="Fleet Supply In Use"
+                                  value={currentFleetSupply}
+                                  onChange={setCurrentFleetSupply}
+                              />,
+                              <OverUnderNumber
+                                  value={getFleetSupplyRemaining(
+                                      currentFleetSupply,
+                                      maxFleetSupply,
+                                      unitCounts,
+                                      unsupportedFighters
+                                  )}
+                              />,
+                          ]
+                        : null,
 
-                        {budgetFilters.has(BudgetFilter.SHIP_CAPACITY) && (
-                            <BudgetRow hiddenColumns={hiddenColumns}>
-                                <HeaderLabel text="Fighter Capacity" />
-                                <BudgetInput
-                                    label="Fighter Capacity Budget"
-                                    value={maxShipCapacity}
-                                    onChange={setMaxShipCapacity}
-                                />
-                                <BudgetInput
-                                    label="Fighter Capacity In Use"
-                                    value={shipCapacityUsed}
-                                    onChange={setShipCapacityUsed}
-                                />
-                                <OverUnderNumber
-                                    value={
-                                        unsupportedFighters
-                                            ? 0
-                                            : fighterCapacityRemaining
-                                    }
-                                />
-                            </BudgetRow>
-                        )}
+                    budgetFilters.has(BudgetFilter.SHIP_CAPACITY)
+                        ? [
+                              <HeaderLabel text="Fighter Capacity" />,
+                              <BudgetInput
+                                  label="Fighter Capacity Budget"
+                                  value={maxShipCapacity}
+                                  onChange={setMaxShipCapacity}
+                              />,
+                              <BudgetInput
+                                  label="Fighter Capacity In Use"
+                                  value={shipCapacityUsed}
+                                  onChange={setShipCapacityUsed}
+                              />,
+                              <OverUnderNumber
+                                  value={
+                                      unsupportedFighters
+                                          ? 0
+                                          : fighterCapacityRemaining
+                                  }
+                              />,
+                          ]
+                        : null,
+                ]}
+            />
 
-                        {inAdvancedMode &&
-                            [
-                                <Checkbox
-                                    size="sm"
-                                    label="Fighter II"
-                                    checked={isFighterUpgraded}
-                                    onChange={() =>
-                                        setIsFighterUpgraded(!isFighterUpgraded)
-                                    }
-                                />,
-                                <BudgetInput
-                                    label="Space Dock Fighter Bonus"
-                                    isLabelVisible
-                                    value={spaceDockFighterBonus}
-                                    onChange={setSpaceDockFighterBonus}
-                                />,
-                            ].map((cellContent, i) => (
-                                <GridCell
-                                    colSpan={Math.floor(numColumns / 2)}
-                                    key={i}
-                                >
-                                    {cellContent}
-                                </GridCell>
-                            ))}
-                    </>
-                }
-            </Grid>
+            {inAdvancedMode && (
+                <SameSizedRowGrid
+                    gridProps={gridProps}
+                    rows={[
+                        [
+                            <Checkbox
+                                size="sm"
+                                label="Fighter II"
+                                checked={isFighterUpgraded}
+                                onChange={() =>
+                                    setIsFighterUpgraded(!isFighterUpgraded)
+                                }
+                            />,
+                            <BudgetInput
+                                label="Space Dock Fighter Bonus"
+                                isLabelVisible
+                                value={spaceDockFighterBonus}
+                                onChange={setSpaceDockFighterBonus}
+                            />,
+                        ],
+                    ]}
+                />
+            )}
         </Card>
     );
 }
