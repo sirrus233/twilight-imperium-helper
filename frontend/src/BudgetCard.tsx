@@ -68,7 +68,7 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
                         <BudgetRow hiddenColumns={hiddenColumns}>
                             <div />
                             <HeaderLabel text="Budget" />
-                            <HeaderLabel text="Reserved" />
+                            <HeaderLabel text="In Use" />
                             <HeaderLabel text="Remaining" />
                         </BudgetRow>
 
@@ -117,7 +117,7 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
                                     onChange={setMaxFleetSupply}
                                 />
                                 <BudgetInput
-                                    label="Reserved Fleet Supply"
+                                    label="Fleet Supply In Use"
                                     value={currentFleetSupply}
                                     onChange={setCurrentFleetSupply}
                                 />
@@ -141,7 +141,7 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
                                     onChange={setMaxShipCapacity}
                                 />
                                 <BudgetInput
-                                    label="Reserved Fighter Capacity"
+                                    label="Fighter Capacity In Use"
                                     value={shipCapacityUsed}
                                     onChange={setShipCapacityUsed}
                                 />
