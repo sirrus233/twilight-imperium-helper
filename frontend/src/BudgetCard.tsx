@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Card from "@mui/joy/Card";
 import Checkbox from "@mui/joy/Checkbox";
 import Grid from "@mui/joy/Grid";
@@ -19,44 +20,18 @@ import { BudgetRow } from "./BudgetRow";
 interface Props {
     unitCounts: UnitCounts;
     budgetFilters: Set<BudgetFilter>;
-    resourceBudget: number;
-    setResourceBudget: (value: number) => void;
-    capacityBudget: number;
-    setCapacityBudget: (value: number) => void;
-    currentFleetSupply: number;
-    setCurrentFleetSupply: (value: number) => void;
-    maxFleetSupply: number;
-    setMaxFleetSupply: (value: number) => void;
-    isFighterUpgraded: boolean;
-    setIsFighterUpgraded: (value: boolean) => void;
-    shipCapacityUsed: number;
-    setShipCapacityUsed: (value: number) => void;
-    maxShipCapacity: number;
-    setMaxShipCapacity: (value: number) => void;
-    spaceDockFighterBonus: number;
-    setSpaceDockFighterBonus: (value: number) => void;
 }
 
-export function BudgetCard({
-    unitCounts,
-    budgetFilters,
-    resourceBudget,
-    setResourceBudget,
-    capacityBudget,
-    setCapacityBudget,
-    currentFleetSupply,
-    setCurrentFleetSupply,
-    maxFleetSupply,
-    setMaxFleetSupply,
-    isFighterUpgraded,
-    setIsFighterUpgraded,
-    shipCapacityUsed,
-    setShipCapacityUsed,
-    maxShipCapacity,
-    setMaxShipCapacity,
-    spaceDockFighterBonus,
-    setSpaceDockFighterBonus,
-}: Props) {
+export function BudgetCard({ unitCounts, budgetFilters }: Props) {
+    const [resourceBudget, setResourceBudget] = useState(0);
+    const [capacityBudget, setCapacityBudget] = useState(0);
+    const [currentFleetSupply, setCurrentFleetSupply] = useState(0);
+    const [maxFleetSupply, setMaxFleetSupply] = useState(0);
+    const [isFighterUpgraded, setIsFighterUpgraded] = useState(false);
+    const [shipCapacityUsed, setShipCapacityUsed] = useState(0);
+    const [maxShipCapacity, setMaxShipCapacity] = useState(0);
+    const [spaceDockFighterBonus, setSpaceDockFighterBonus] = useState(0);
+
     const fighterCapacityRemaining =
         maxShipCapacity +
         spaceDockFighterBonus -
