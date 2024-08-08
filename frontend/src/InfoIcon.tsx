@@ -9,7 +9,7 @@ interface Props {
 
 export function InfoIcon({ text }: Props) {
     return (
-        <Tooltip title={text}>
+        <Tooltip title={text} enterTouchDelay={0}>
             <Box
                 borderRadius="50%"
                 border="1px solid black"
