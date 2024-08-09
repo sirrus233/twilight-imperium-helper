@@ -8,15 +8,8 @@ interface Props {
 }
 
 export function DisplayField({ label, value, visible = true }: Props) {
-    const style = value < 0 ? { sx: { color: "red" } } : {};
-
     return (
-        <Typography
-            level="h4"
-            display={visible ? "block" : "none"}
-            {...style}
-            key={label}
-        >
+        <Typography level="h4" display={visible ? "block" : "none"} key={label}>
             {`${label}: ${value}`}
         </Typography>
     );

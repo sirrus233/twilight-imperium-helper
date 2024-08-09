@@ -11,10 +11,9 @@ import {
     BudgetFilter,
 } from "./data";
 import { UnitCounter } from "./UnitCounter";
-import { BudgetModeDisplay } from "./BudgetModeDisplay";
-import { BudgetModeInputs } from "./BudgetModeInputs";
 import { CalculatorModeDisplay } from "./CalculatorModeDisplay";
 import BudgetFilters from "./BudgetFilters";
+import { BudgetCard } from "./BudgetCard";
 
 export default function ProductionHelper() {
     const [unitCounts, setUnitCounts] = useState<UnitCounts>(
@@ -24,14 +23,6 @@ export default function ProductionHelper() {
     const [budgetFilters, setBudgetFilters] = useState(
         new Set([BudgetFilter.RESOURCES, BudgetFilter.PRODUCTION_LIMIT])
     );
-    const [resourceBudget, setResourceBudget] = useState(0);
-    const [capacityBudget, setCapacityBudget] = useState(0);
-    const [currentFleetSupply, setCurrentFleetSupply] = useState(0);
-    const [maxFleetSupply, setMaxFleetSupply] = useState(0);
-    const [isFighterUpgraded, setIsFighterUpgraded] = useState(false);
-    const [shipCapacityUsed, setShipCapacityUsed] = useState(0);
-    const [maxShipCapacity, setMaxShipCapacity] = useState(0);
-    const [spaceDockFighterBonus, setSpaceDockFighterBonus] = useState(0);
 
     function handleModeChange() {
         switch (mode) {
@@ -75,36 +66,9 @@ export default function ProductionHelper() {
                             budgetFilters={budgetFilters}
                             onChange={handleBudgetFilterChange}
                         />
-                        <BudgetModeDisplay
-                            budgetFilters={budgetFilters}
-                            resourceBudget={resourceBudget}
-                            capacityBudget={capacityBudget}
-                            currentFleetSupply={currentFleetSupply}
-                            maxFleetSupply={maxFleetSupply}
+                        <BudgetCard
                             unitCounts={unitCounts}
-                            isFighterUpgraded={isFighterUpgraded}
-                            shipCapacityUsed={shipCapacityUsed}
-                            maxShipCapacity={maxShipCapacity}
-                            spaceDockFighterBonus={spaceDockFighterBonus}
-                        />
-                        <BudgetModeInputs
                             budgetFilters={budgetFilters}
-                            resourceBudget={resourceBudget}
-                            setResourceBudget={setResourceBudget}
-                            capacityBudget={capacityBudget}
-                            setCapacityBudget={setCapacityBudget}
-                            currentFleetSupply={currentFleetSupply}
-                            setCurrentFleetSupply={setCurrentFleetSupply}
-                            maxFleetSupply={maxFleetSupply}
-                            setMaxFleetSupply={setMaxFleetSupply}
-                            isFighterUpgraded={isFighterUpgraded}
-                            setIsFighterUpgraded={setIsFighterUpgraded}
-                            shipCapacityUsed={shipCapacityUsed}
-                            setShipCapacityUsed={setShipCapacityUsed}
-                            maxShipCapacity={maxShipCapacity}
-                            setMaxShipCapacity={setMaxShipCapacity}
-                            spaceDockFighterBonus={spaceDockFighterBonus}
-                            setSpaceDockFighterBonus={setSpaceDockFighterBonus}
                         />
                     </Box>
                 );
