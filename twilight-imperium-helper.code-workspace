@@ -1,0 +1,21 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "frontend"
+        },
+        {
+            "path": "infrastructure"
+        },
+        {
+            "path": "infrastructure/lambda/redirect"
+        }
+    ],
+    "settings": {
+        "material-icon-theme.folders.associations": {
+            "infrastructure": "Aws"
+        }
+    }
+}

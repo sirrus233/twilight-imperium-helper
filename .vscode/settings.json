@@ -12,6 +12,5 @@
         "editor.formatOnType": false,
         "editor.formatOnSave": true,
         "editor.formatOnSaveMode": "file"
-    },
-    "material-icon-theme.folders.associations": { "infrastructure": "Aws" }
+    }
 }
