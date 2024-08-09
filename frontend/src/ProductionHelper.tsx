@@ -51,34 +51,17 @@ export default function ProductionHelper() {
         setBudgetFilters(newState);
     }
 
-    function Calculator() {
-        switch (mode) {
-            case Mode.CALCULATOR:
-                return (
-                    <Box>
-                        <CalculatorModeDisplay unitCounts={unitCounts} />
-                    </Box>
-                );
-            case Mode.BUDGET:
-                return (
-                    <Box>
-                        <BudgetFilters
-                            budgetFilters={budgetFilters}
-                            onChange={handleBudgetFilterChange}
-                        />
-                        <BudgetCard
-                            unitCounts={unitCounts}
-                            budgetFilters={budgetFilters}
-                        />
-                    </Box>
-                );
-        }
-    }
-
     return (
         <div>
             <ModeToggle mode={mode} onChange={handleModeChange} />
-            <Calculator />
+
+            {getCalculator(
+                mode,
+                unitCounts,
+                budgetFilters,
+                handleBudgetFilterChange
+            )}
+
             {Object.values(Unit).map((unit, i) => (
                 <UnitCounter
                     key={i}
@@ -91,4 +74,36 @@ export default function ProductionHelper() {
             ))}
         </div>
     );
+}
+
+function getCalculator(
+    mode: Mode,
+    unitCounts: UnitCounts,
+    budgetFilters: Set<BudgetFilter>,
+    handleBudgetFilterChange: (
+        checked: boolean,
+        budgetFilter: BudgetFilter
+    ) => void
+) {
+    switch (mode) {
+        case Mode.CALCULATOR:
+            return (
+                <Box>
+                    <CalculatorModeDisplay unitCounts={unitCounts} />
+                </Box>
+            );
+        case Mode.BUDGET:
+            return (
+                <Box>
+                    <BudgetFilters
+                        budgetFilters={budgetFilters}
+                        onChange={handleBudgetFilterChange}
+                    />
+                    <BudgetCard
+                        unitCounts={unitCounts}
+                        budgetFilters={budgetFilters}
+                    />
+                </Box>
+            );
+    }
 }
