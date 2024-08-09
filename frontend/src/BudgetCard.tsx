@@ -15,7 +15,7 @@ import {
 } from "./data";
 import { OverUnderNumber } from "./OverUnderNumber";
 import { InfoIcon } from "./InfoIcon";
-import { SameSizedRowGrid } from "./SameSizedRowGrid";
+import { SameSizedRowGrid, FixedSizeRow4 } from "./SameSizedRowGrid";
 
 interface Props {
     unitCounts: UnitCounts;
@@ -47,115 +47,100 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
         budgetFilters.has(BudgetFilter.FLEET_SUPPLY) ||
         budgetFilters.has(BudgetFilter.SHIP_CAPACITY);
 
-    const gridProps = {
-        columnSpacing: 1,
-        rowSpacing: 2,
-        alignItems: "center",
-        sx: { flexGrow: 1 },
-    };
+    const rows: FixedSizeRow4[] = [];
+
+    rows.push([
+        <div />,
+        <HeaderLabel text="Budget" />,
+        <Stack direction="row">
+            <HeaderLabel text="In Use" />
+            <InfoIcon text="Capacity already in use before beginning production" />
+        </Stack>,
+        <HeaderLabel text="Remaining" />,
+    ]);
+
+    if (budgetFilters.has(BudgetFilter.RESOURCES)) {
+        rows.push([
+            <HeaderLabel text="Resources" />,
+            <BudgetInput
+                label="Resource Budget"
+                value={resourceBudget}
+                onChange={setResourceBudget}
+            />,
+            <div />,
+            <OverUnderNumber
+                value={resourceBudget - getTotalCost(unitCounts)}
+            />,
+        ]);
+    }
+
+    if (budgetFilters.has(BudgetFilter.PRODUCTION_LIMIT)) {
+        rows.push([
+            <HeaderLabel text="Production Limit" />,
+            <BudgetInput
+                label="Production Limit Budget"
+                value={capacityBudget}
+                onChange={setCapacityBudget}
+            />,
+            <div />,
+            <OverUnderNumber
+                value={capacityBudget - sumUnitCounts(unitCounts)}
+            />,
+        ]);
+    }
+
+    if (budgetFilters.has(BudgetFilter.FLEET_SUPPLY)) {
+        rows.push([
+            <HeaderLabel text="Fleet Supply" />,
+            <BudgetInput
+                label="Fleet Supply Budget"
+                value={maxFleetSupply}
+                onChange={setMaxFleetSupply}
+            />,
+            <BudgetInput
+                label="Fleet Supply In Use"
+                value={currentFleetSupply}
+                onChange={setCurrentFleetSupply}
+            />,
+            <OverUnderNumber
+                value={getFleetSupplyRemaining(
+                    currentFleetSupply,
+                    maxFleetSupply,
+                    unitCounts,
+                    unsupportedFighters
+                )}
+            />,
+        ]);
+    }
+
+    if (budgetFilters.has(BudgetFilter.SHIP_CAPACITY)) {
+        rows.push([
+            <HeaderLabel text="Fighter Capacity" />,
+            <BudgetInput
+                label="Fighter Capacity Budget"
+                value={maxShipCapacity}
+                onChange={setMaxShipCapacity}
+            />,
+            <BudgetInput
+                label="Fighter Capacity In Use"
+                value={shipCapacityUsed}
+                onChange={setShipCapacityUsed}
+            />,
+            <OverUnderNumber
+                value={unsupportedFighters ? 0 : fighterCapacityRemaining}
+            />,
+        ]);
+    }
 
     return (
         <Card sx={{ mb: 2, maxWidth: "600px" }} variant="plain">
             <SameSizedRowGrid
                 hiddenColumns={inAdvancedMode ? [] : [2]}
-                gridProps={gridProps}
-                rows={[
-                    [
-                        <div />,
-                        <HeaderLabel text="Budget" />,
-                        <Stack direction="row">
-                            <HeaderLabel text="In Use" />
-                            <InfoIcon text="Capacity already in use before beginning production" />
-                        </Stack>,
-                        <HeaderLabel text="Remaining" />,
-                    ],
-
-                    budgetFilters.has(BudgetFilter.RESOURCES)
-                        ? [
-                              <HeaderLabel text="Resources" />,
-                              <BudgetInput
-                                  label="Resource Budget"
-                                  value={resourceBudget}
-                                  onChange={setResourceBudget}
-                              />,
-                              <div />,
-                              <OverUnderNumber
-                                  value={
-                                      resourceBudget - getTotalCost(unitCounts)
-                                  }
-                              />,
-                          ]
-                        : null,
-
-                    budgetFilters.has(BudgetFilter.PRODUCTION_LIMIT)
-                        ? [
-                              <HeaderLabel text="Production Limit" />,
-                              <BudgetInput
-                                  label="Production Limit Budget"
-                                  value={capacityBudget}
-                                  onChange={setCapacityBudget}
-                              />,
-                              <div />,
-                              <OverUnderNumber
-                                  value={
-                                      capacityBudget - sumUnitCounts(unitCounts)
-                                  }
-                              />,
-                          ]
-                        : null,
-
-                    budgetFilters.has(BudgetFilter.FLEET_SUPPLY)
-                        ? [
-                              <HeaderLabel text="Fleet Supply" />,
-                              <BudgetInput
-                                  label="Fleet Supply Budget"
-                                  value={maxFleetSupply}
-                                  onChange={setMaxFleetSupply}
-                              />,
-                              <BudgetInput
-                                  label="Fleet Supply In Use"
-                                  value={currentFleetSupply}
-                                  onChange={setCurrentFleetSupply}
-                              />,
-                              <OverUnderNumber
-                                  value={getFleetSupplyRemaining(
-                                      currentFleetSupply,
-                                      maxFleetSupply,
-                                      unitCounts,
-                                      unsupportedFighters
-                                  )}
-                              />,
-                          ]
-                        : null,
-
-                    budgetFilters.has(BudgetFilter.SHIP_CAPACITY)
-                        ? [
-                              <HeaderLabel text="Fighter Capacity" />,
-                              <BudgetInput
-                                  label="Fighter Capacity Budget"
-                                  value={maxShipCapacity}
-                                  onChange={setMaxShipCapacity}
-                              />,
-                              <BudgetInput
-                                  label="Fighter Capacity In Use"
-                                  value={shipCapacityUsed}
-                                  onChange={setShipCapacityUsed}
-                              />,
-                              <OverUnderNumber
-                                  value={
-                                      unsupportedFighters
-                                          ? 0
-                                          : fighterCapacityRemaining
-                                  }
-                              />,
-                          ]
-                        : null,
-                ]}
+                rows={rows}
             />
 
             {inAdvancedMode && (
                 <SameSizedRowGrid
-                    gridProps={gridProps}
                     rows={[
                         [
                             <Checkbox

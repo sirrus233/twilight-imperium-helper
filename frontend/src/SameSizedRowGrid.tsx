@@ -1,36 +1,37 @@
 import * as React from "react";
 import { ReactNode } from "react";
-import Grid, { GridProps } from "@mui/joy/Grid";
+import Grid from "@mui/joy/Grid";
 
-interface Props {
-    rows: (ReactNode[] | null)[];
+export type FixedSizeRow2 = [ReactNode, ReactNode];
+export type FixedSizeRow4 = [ReactNode, ReactNode, ReactNode, ReactNode];
+
+interface Props2 {
+    rows: FixedSizeRow2[];
     hiddenColumns?: number[];
-    gridProps: GridProps;
 }
 
+interface Props4 {
+    rows: FixedSizeRow4[];
+    hiddenColumns?: number[];
+}
+
+export function SameSizedRowGrid({ rows, hiddenColumns }: Props2): ReactNode;
+export function SameSizedRowGrid({ rows, hiddenColumns }: Props4): ReactNode;
 export function SameSizedRowGrid({
     rows,
     hiddenColumns = [],
-    gridProps,
-}: Props) {
-    const rowLengths = new Set(
-        rows.filter((row) => row !== null).map((row) => row.length)
-    );
-
-    if (rowLengths.size !== 1) {
-        throw new Error(
-            `Must provide at least one row, and each row must have the same number of elements`
-        );
-    }
-
-    const [numColumns] = Array.from(rowLengths);
+}: Props2 | Props4) {
+    const numColumns = rows.filter((row) => row !== null)[0].length;
     const hiddenColumnsSet = new Set(hiddenColumns);
 
     return (
         <Grid
             container
             columns={numColumns - hiddenColumnsSet.size}
-            {...gridProps}
+            columnSpacing={1}
+            rowSpacing={2}
+            alignItems="center"
+            sx={{ flexGrow: 1 }}
         >
             {rows.flatMap((row, rowNum) => {
                 return row?.map(
