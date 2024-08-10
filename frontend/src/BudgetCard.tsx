@@ -24,18 +24,18 @@ interface Props {
 
 export function BudgetCard({ unitCounts, budgetFilters }: Props) {
     const [resourceBudget, setResourceBudget] = useState(0);
-    const [capacityBudget, setCapacityBudget] = useState(0);
-    const [currentFleetSupply, setCurrentFleetSupply] = useState(0);
-    const [maxFleetSupply, setMaxFleetSupply] = useState(0);
+    const [productionLimit, setProductionLimit] = useState(0);
+    const [fleetSupplyInUse, setFleetSupplyInUse] = useState(0);
+    const [fleetSupplyBudget, setFleetSupplyBudget] = useState(0);
     const [isFighterUpgraded, setIsFighterUpgraded] = useState(false);
-    const [shipCapacityUsed, setShipCapacityUsed] = useState(0);
-    const [maxShipCapacity, setMaxShipCapacity] = useState(0);
+    const [fighterCapacityInUse, setFighterCapacityInUse] = useState(0);
+    const [fighterCapacityBudget, setFighterCapacityBudget] = useState(0);
     const [spaceDockFighterBonus, setSpaceDockFighterBonus] = useState(0);
 
     const fighterCapacityRemaining =
-        maxShipCapacity +
+        fighterCapacityBudget +
         spaceDockFighterBonus -
-        shipCapacityUsed -
+        fighterCapacityInUse -
         getFighterCount(unitCounts);
 
     const unsupportedFighters =
@@ -81,12 +81,12 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
             <BudgetInput
                 label="Production Limit Budget"
                 placeholder="units"
-                value={capacityBudget}
-                onChange={setCapacityBudget}
+                value={productionLimit}
+                onChange={setProductionLimit}
             />,
             <div />,
             <OverUnderNumber
-                value={capacityBudget - sumUnitCounts(unitCounts)}
+                value={productionLimit - sumUnitCounts(unitCounts)}
             />,
         ]);
     }
@@ -97,19 +97,19 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
             <BudgetInput
                 label="Fleet Supply Budget"
                 placeholder="ships"
-                value={maxFleetSupply}
-                onChange={setMaxFleetSupply}
+                value={fleetSupplyBudget}
+                onChange={setFleetSupplyBudget}
             />,
             <BudgetInput
                 label="Fleet Supply In Use"
                 placeholder="ships"
-                value={currentFleetSupply}
-                onChange={setCurrentFleetSupply}
+                value={fleetSupplyInUse}
+                onChange={setFleetSupplyInUse}
             />,
             <OverUnderNumber
                 value={getFleetSupplyRemaining(
-                    currentFleetSupply,
-                    maxFleetSupply,
+                    fleetSupplyInUse,
+                    fleetSupplyBudget,
                     unitCounts,
                     unsupportedFighters
                 )}
@@ -123,14 +123,14 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
             <BudgetInput
                 label="Fighter Capacity Budget"
                 placeholder="units"
-                value={maxShipCapacity}
-                onChange={setMaxShipCapacity}
+                value={fighterCapacityBudget}
+                onChange={setFighterCapacityBudget}
             />,
             <BudgetInput
                 label="Fighter Capacity In Use"
                 placeholder="units"
-                value={shipCapacityUsed}
-                onChange={setShipCapacityUsed}
+                value={fighterCapacityInUse}
+                onChange={setFighterCapacityInUse}
             />,
             <OverUnderNumber
                 value={unsupportedFighters ? 0 : fighterCapacityRemaining}
