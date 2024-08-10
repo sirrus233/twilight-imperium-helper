@@ -5,7 +5,7 @@ import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as cloudfront_origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as certificatemanager from "aws-cdk-lib/aws-certificatemanager";
 import * as lambda from "aws-cdk-lib/aws-lambda";
-import path = require("path");
+import * as path from "path";
 
 export class InfrastructureStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -24,7 +24,7 @@ export class InfrastructureStack extends cdk.Stack {
             "RedirectFunction",
             {
                 runtime: lambda.Runtime.NODEJS_20_X,
-                handler: "handler",
+                handler: "index.handler",
                 code: lambda.Code.fromAsset(
                     path.join(__dirname, "..", "lambda", "redirect")
                 ),
@@ -47,7 +47,7 @@ export class InfrastructureStack extends cdk.Stack {
                     {
                         functionVersion: redirectFunction.currentVersion,
                         eventType:
-                            cloudfront.LambdaEdgeEventType.ORIGIN_REQUEST,
+                            cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
                     },
                 ],
             },

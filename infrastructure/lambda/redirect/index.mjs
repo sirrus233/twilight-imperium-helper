@@ -1,8 +1,5 @@
-import { CloudFrontRequestEvent, CloudFrontRequestResult } from "aws-lambda";
-
-export const handler = async (
-    event: CloudFrontRequestEvent
-): Promise<CloudFrontRequestResult> => {
+// @ts-check
+export const handler = async (event) => {
     const request = event.Records[0].cf.request;
     const headers = request.headers;
     return headers.host[0].value.startsWith("www.")
