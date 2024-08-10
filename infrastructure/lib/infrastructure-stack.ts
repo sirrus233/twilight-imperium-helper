@@ -23,9 +23,9 @@ export class InfrastructureStack extends cdk.Stack {
             this,
             "RedirectFunction",
             {
-                runtime: lambda.Runtime.FROM_IMAGE,
-                handler: lambda.Handler.FROM_IMAGE,
-                code: lambda.Code.fromDockerBuild(
+                runtime: lambda.Runtime.NODEJS_20_X,
+                handler: "handler",
+                code: lambda.Code.fromAsset(
                     path.join(__dirname, "..", "lambda", "redirect")
                 ),
             }
