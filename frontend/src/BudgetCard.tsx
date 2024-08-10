@@ -64,6 +64,7 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
             <HeaderLabel text="Resources" />,
             <BudgetInput
                 label="Resource Budget"
+                placeholder="$"
                 value={resourceBudget}
                 onChange={setResourceBudget}
             />,
@@ -79,6 +80,7 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
             <HeaderLabel text="Production Limit" />,
             <BudgetInput
                 label="Production Limit Budget"
+                placeholder="units"
                 value={capacityBudget}
                 onChange={setCapacityBudget}
             />,
@@ -94,11 +96,13 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
             <HeaderLabel text="Fleet Supply" />,
             <BudgetInput
                 label="Fleet Supply Budget"
+                placeholder="ships"
                 value={maxFleetSupply}
                 onChange={setMaxFleetSupply}
             />,
             <BudgetInput
                 label="Fleet Supply In Use"
+                placeholder="ships"
                 value={currentFleetSupply}
                 onChange={setCurrentFleetSupply}
             />,
@@ -118,11 +122,13 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
             <HeaderLabel text="Fighter Capacity" />,
             <BudgetInput
                 label="Fighter Capacity Budget"
+                placeholder="units"
                 value={maxShipCapacity}
                 onChange={setMaxShipCapacity}
             />,
             <BudgetInput
                 label="Fighter Capacity In Use"
+                placeholder="units"
                 value={shipCapacityUsed}
                 onChange={setShipCapacityUsed}
             />,
@@ -153,6 +159,7 @@ export function BudgetCard({ unitCounts, budgetFilters }: Props) {
                             />,
                             <BudgetInput
                                 label="Space Dock Fighter Bonus"
+                                placeholder="units"
                                 isLabelVisible
                                 value={spaceDockFighterBonus}
                                 onChange={setSpaceDockFighterBonus}
