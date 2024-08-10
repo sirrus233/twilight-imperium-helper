@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/joy/Box";
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
+import { MinusIcon, PlusIcon } from "./Icons";
 
 interface Props {
     value: number;
@@ -48,44 +49,6 @@ export function InputStepper({ value, min, max, step, onChange }: Props) {
             >
                 <PlusIcon />
             </IconButton>
-        </Box>
-    );
-}
-
-function MinusIcon() {
-    return (
-        <Box
-            position="absolute"
-            boxSizing="border-box"
-            height={0}
-            width="40%"
-            borderTop={"2px solid #888"}
-        />
-    );
-}
-
-function PlusIcon() {
-    return (
-        <Box
-            position="absolute"
-            width="40%"
-            height="40%"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-        >
-            <Box
-                position="absolute"
-                height={0}
-                width="100%"
-                borderTop={"2px solid #888"}
-            />
-            <Box
-                position="absolute"
-                height="100%"
-                width={0}
-                borderLeft={"2px solid #888"}
-            />
         </Box>
     );
 }
