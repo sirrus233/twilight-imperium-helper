@@ -28,6 +28,7 @@ export default function BudgetFilters({ budgetFilters, onChange }: Props) {
                     return (
                         <ListItem key={budgetFilter}>
                             <Checkbox
+                                size="sm"
                                 disableIcon
                                 label={budgetFilter}
                                 variant={checked ? "soft" : "outlined"}

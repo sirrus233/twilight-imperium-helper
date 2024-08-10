@@ -1,6 +1,7 @@
 import { CssVarsProvider, extendTheme } from "@mui/joy";
 import CssBaseline from "@mui/joy/CssBaseline";
 import React from "react";
+import Box from "@mui/joy/Box";
 import IconButton from "@mui/joy/IconButton";
 import Drawer from "@mui/joy/Drawer";
 import List from "@mui/joy/List";
@@ -36,9 +37,9 @@ export default function App() {
 
 function Home() {
     return (
-        <div>
+        <Box p="10px">
             <ProductionHelper />
-        </div>
+        </Box>
     );
 }
 
@@ -46,7 +47,7 @@ function DrawerNavigation() {
     const [open, setOpen] = React.useState(false);
 
     return (
-        <>
+        <Box p="10px">
             <IconButton
                 variant="outlined"
                 color="primary"
@@ -73,6 +74,6 @@ function DrawerNavigation() {
                     </ListItemButton>
                 </List>
             </Drawer>
-        </>
+        </Box>
     );
 }
