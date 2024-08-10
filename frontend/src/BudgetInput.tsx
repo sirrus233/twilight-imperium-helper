@@ -31,6 +31,11 @@ export function BudgetInput({
                 sx={{ backgroundColor: "white" }}
                 placeholder={placeholder}
                 value={value || ""}
+                slotProps={{
+                    input: {
+                        inputMode: "numeric",
+                    },
+                }}
                 onChange={(event) => {
                     const numValue = Number(event.target.value);
 
