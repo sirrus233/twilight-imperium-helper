@@ -12,7 +12,7 @@ export function CalculatorModeDisplay({ unitCounts }: Props) {
             value: getTotalCost(unitCounts),
         },
         {
-            label: "Total Capacity",
+            label: "Total Units",
             value: sumUnitCounts(unitCounts),
         },
     ].map(DisplayField);
