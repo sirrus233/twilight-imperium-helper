@@ -108,8 +108,8 @@ export function getFighterCount(unitCounts: UnitCounts): number {
 }
 
 export function getFleetSupplyRemaining(
-    currentFleetSupply: number,
-    maxFleetSupply: number,
+    fleetSupplyInUse: number,
+    fleetSupplyBudget: number,
     unitCounts: UnitCounts,
     unsupportedFighters: number
 ) {
@@ -122,6 +122,6 @@ export function getFleetSupplyRemaining(
     );
 
     return (
-        maxFleetSupply - currentFleetSupply - shipCount - unsupportedFighters
+        fleetSupplyBudget - fleetSupplyInUse - shipCount - unsupportedFighters
     );
 }
