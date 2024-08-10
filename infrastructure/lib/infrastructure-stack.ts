@@ -4,6 +4,8 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as cloudfront_origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as certificatemanager from "aws-cdk-lib/aws-certificatemanager";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import path = require("path");
 
 export class InfrastructureStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -17,6 +19,18 @@ export class InfrastructureStack extends cdk.Stack {
         const bucket = new s3.Bucket(this, "Bucket");
         bucket.grantRead(originAccessIdentity);
 
+        const redirectFunction = new cloudfront.experimental.EdgeFunction(
+            this,
+            "RedirectFunction",
+            {
+                runtime: lambda.Runtime.FROM_IMAGE,
+                handler: lambda.Handler.FROM_IMAGE,
+                code: lambda.Code.fromDockerBuild(
+                    path.join(__dirname, "..", "lambda", "redirect")
+                ),
+            }
+        );
+
         const certificate = certificatemanager.Certificate.fromCertificateArn(
             this,
             "Certificate",
@@ -29,6 +43,13 @@ export class InfrastructureStack extends cdk.Stack {
                 origin: new cloudfront_origins.S3Origin(bucket, {
                     originAccessIdentity,
                 }),
+                edgeLambdas: [
+                    {
+                        functionVersion: redirectFunction.currentVersion,
+                        eventType:
+                            cloudfront.LambdaEdgeEventType.ORIGIN_REQUEST,
+                    },
+                ],
             },
             certificate: certificate,
             domainNames: [

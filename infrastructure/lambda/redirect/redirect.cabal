@@ -1,17 +1,11 @@
 cabal-version:      3.4
 name:               redirect
 version:            1.0
--- synopsis:
--- description:
 license:            ISC
-license-file:       LICENSE
 author:             Bradley Sherman
 maintainer:         sirrus233@gmail.com
--- copyright:
 category:           Network
 build-type:         Simple
-extra-doc-files:    CHANGELOG.md
--- extra-source-files:
 
 common warnings
     ghc-options: -Wall
@@ -22,7 +16,8 @@ executable bootstrap
     -- other-modules:
     -- other-extensions:
     build-depends:    base >= 4.17.2 && < 4.18,
+                      text >= 2.0.2 && < 2.1,
                       aeson >= 2.2.3 && < 2.3,
                       hal >= 1.1 && < 1.2,
-    hs-source-dirs:   app
+    hs-source-dirs:   src
     default-language: Haskell2010
