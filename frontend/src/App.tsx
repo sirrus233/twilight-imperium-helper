@@ -37,7 +37,7 @@ export default function App() {
 
 function Home() {
     return (
-        <Box p="10px">
+        <Box p="10px" sx={{ touchAction: "manipulation" }}>
             <ProductionHelper />
         </Box>
     );
