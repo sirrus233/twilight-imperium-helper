@@ -28,7 +28,10 @@ export function BudgetInput({
             <Input
                 aria-label={label}
                 size="sm"
-                sx={{ backgroundColor: "white" }}
+                sx={{
+                    backgroundColor: "white",
+                    "&:focus-within": { fontSize: "16px" },
+                }}
                 placeholder={placeholder}
                 value={value || ""}
                 slotProps={{
