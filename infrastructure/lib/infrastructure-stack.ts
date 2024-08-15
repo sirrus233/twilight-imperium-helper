@@ -50,6 +50,8 @@ export class InfrastructureStack extends cdk.Stack {
                             cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
                     },
                 ],
+                viewerProtocolPolicy:
+                    cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
             },
             certificate: certificate,
             domainNames: [
