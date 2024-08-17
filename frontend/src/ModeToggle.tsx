@@ -28,12 +28,14 @@ export function ModeToggle({ mode, onChange }: Props) {
     }
 
     return (
-        <Switch
-            color={getToggleColor(mode)}
-            checked={getToggleState(mode)}
-            startDecorator={<Typography>Calculator</Typography>}
-            endDecorator={<Typography>Budget</Typography>}
-            onChange={() => onChange()}
-        />
+        <div>
+            <Switch
+                color={getToggleColor(mode)}
+                checked={getToggleState(mode)}
+                startDecorator={<Typography>Calculator</Typography>}
+                endDecorator={<Typography>Budget</Typography>}
+                onChange={() => onChange()}
+            />
+        </div>
     );
 }

@@ -14,6 +14,8 @@ import { UnitCounter } from "./UnitCounter";
 import { CalculatorModeDisplay } from "./CalculatorModeDisplay";
 import BudgetFilters from "./BudgetFilters";
 import { BudgetCard } from "./BudgetCard";
+import Button from "@mui/joy/Button";
+import Stack from "@mui/joy/Stack";
 
 export default function ProductionHelper() {
     const [unitCounts, setUnitCounts] = useState<UnitCounts>(
@@ -51,8 +53,14 @@ export default function ProductionHelper() {
         setBudgetFilters(newState);
     }
 
+    function handleClearUnitCounts() {
+        const newState = new Map(unitCounts);
+        newState.forEach((_, key) => newState.set(key, 0));
+        setUnitCounts(newState);
+    }
+
     return (
-        <div>
+        <Stack spacing={2}>
             <ModeToggle mode={mode} onChange={handleModeChange} />
 
             {getCalculator(
@@ -62,17 +70,28 @@ export default function ProductionHelper() {
                 handleBudgetFilterChange
             )}
 
-            {Object.values(Unit).map((unit, i) => (
-                <UnitCounter
-                    key={i}
-                    unit={unit}
-                    unitCost={getUnitCost(unit)}
-                    unitCount={unitCounts.get(unit) || 0}
-                    imgPath={getImgPath(unit)}
-                    onChange={handleUnitCountChange}
-                />
-            ))}
-        </div>
+            <Stack>
+                {Object.values(Unit).map((unit, i) => (
+                    <UnitCounter
+                        key={i}
+                        unit={unit}
+                        unitCost={getUnitCost(unit)}
+                        unitCount={unitCounts.get(unit) || 0}
+                        imgPath={getImgPath(unit)}
+                        onChange={handleUnitCountChange}
+                    />
+                ))}
+            </Stack>
+
+            <Box>
+                <Button
+                    color={"danger"}
+                    onClick={() => handleClearUnitCounts()}
+                >
+                    Clear
+                </Button>
+            </Box>
+        </Stack>
     );
 }
 
