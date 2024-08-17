@@ -54,9 +54,7 @@ export default function ProductionHelper() {
     }
 
     function handleClearUnitCounts() {
-        const newState = new Map(unitCounts);
-        newState.forEach((_, key) => newState.set(key, 0));
-        setUnitCounts(newState);
+        setUnitCounts(new Map(Object.values(Unit).map((unit) => [unit, 0])));
     }
 
     return (
