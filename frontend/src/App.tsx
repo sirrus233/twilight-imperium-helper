@@ -6,6 +6,7 @@ import IconButton from "@mui/joy/IconButton";
 import Drawer from "@mui/joy/Drawer";
 import List from "@mui/joy/List";
 import ListItemButton from "@mui/joy/ListItemButton";
+import { Menu as MenuIcon } from "@mui/icons-material";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ProductionHelper from "./ProductionHelper";
 
@@ -54,7 +55,7 @@ function DrawerNavigation() {
                 onClick={() => setOpen(true)}
                 sx={{ mb: 2, p: 1 }}
             >
-                Menu
+                <MenuIcon />
             </IconButton>
             <Drawer open={open} onClose={() => setOpen(false)}>
                 <List
