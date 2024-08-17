@@ -4,6 +4,7 @@ import Typography from "@mui/joy/Typography";
 import Stack from "@mui/joy/Stack";
 import { Unit } from "./data";
 import { InputStepper } from "./InputStepper";
+import TradeGood from "./assets/trade-good.png";
 
 interface Props {
     unit: Unit;
@@ -42,20 +43,40 @@ export function UnitCounter({
             >
                 {unit}
             </Typography>
-            <Typography
-                level="body-md"
-                textAlign="center"
-                maxWidth="3em"
-                minWidth="2em"
-            >
-                {`${unitCost}r`}
-            </Typography>
+            <Cost cost={unitCost} />
             <InputStepper
                 value={unitCount}
                 min={0}
                 max={99}
                 step={1}
                 onChange={(value) => onChange(value, unit)}
+            />
+        </Stack>
+    );
+}
+
+function Cost(props: { cost: number }) {
+    return (
+        <Stack
+            direction="row"
+            alignItems="center"
+            height="44px"
+            overflow="hidden"
+        >
+            <Typography
+                level="body-md"
+                textAlign="right"
+                maxWidth="3em"
+                minWidth="2em"
+            >
+                {`${props.cost}`}
+            </Typography>
+            <Box
+                component="img"
+                alt={"resources"}
+                src={TradeGood}
+                maxWidth={44}
+                minWidth={20}
             />
         </Stack>
     );
