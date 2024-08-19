@@ -4,7 +4,7 @@ import Typography from "@mui/joy/Typography";
 import Stack from "@mui/joy/Stack";
 import { Unit } from "./data";
 import { InputStepper } from "./InputStepper";
-import TradeGood from "./assets/trade-good.png";
+import tradeGoodImgPath from "./assets/trade-good.png";
 
 interface Props {
     unit: Unit;
@@ -22,13 +22,7 @@ export function UnitCounter({
     onChange,
 }: Props) {
     return (
-        <Stack
-            direction="row"
-            spacing={1}
-            alignItems="center"
-            height="44px"
-            overflow="hidden"
-        >
+        <Stack direction="row" spacing={1} alignItems="center" height="44px">
             <Box
                 component="img"
                 alt={unit}
@@ -74,7 +68,7 @@ function Cost(props: { cost: number }) {
             <Box
                 component="img"
                 alt={"resources"}
-                src={TradeGood}
+                src={tradeGoodImgPath}
                 maxWidth={44}
                 minWidth={20}
             />
