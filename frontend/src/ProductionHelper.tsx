@@ -82,10 +82,7 @@ export default function ProductionHelper() {
             </Stack>
 
             <Box>
-                <Button
-                    color={"danger"}
-                    onClick={() => handleClearUnitCounts()}
-                >
+                <Button color={"danger"} onClick={handleClearUnitCounts}>
                     Clear
                 </Button>
             </Box>
