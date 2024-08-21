@@ -22,7 +22,13 @@ export function UnitCounter({
     onChange,
 }: Props) {
     return (
-        <Stack direction="row" spacing={1} alignItems="center" height="44px">
+        <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            height="44px"
+            overflow="hidden"
+        >
             <Box
                 component="img"
                 alt={unit}
@@ -51,12 +57,7 @@ export function UnitCounter({
 
 function Cost(props: { cost: number }) {
     return (
-        <Stack
-            direction="row"
-            alignItems="center"
-            height="44px"
-            overflow="hidden"
-        >
+        <Stack direction="row" alignItems="center" height="44px">
             <Typography
                 level="body-md"
                 textAlign="right"
