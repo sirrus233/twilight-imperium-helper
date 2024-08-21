@@ -19,6 +19,10 @@ export class InfrastructureStack extends cdk.Stack {
         const bucket = new s3.Bucket(this, "Bucket");
         bucket.grantRead(originAccessIdentity);
 
+        const s3Origin = new cloudfront_origins.S3Origin(bucket, {
+            originAccessIdentity,
+        });
+
         const redirectFunction = new cloudfront.experimental.EdgeFunction(
             this,
             "RedirectFunction",
@@ -38,11 +42,14 @@ export class InfrastructureStack extends cdk.Stack {
         );
 
         const distribution = new cloudfront.Distribution(this, "Distribution", {
+            certificate: certificate,
             defaultRootObject: "index.html",
+            domainNames: [
+                "twilight-imperium-tools.com",
+                "*.twilight-imperium-tools.com",
+            ],
             defaultBehavior: {
-                origin: new cloudfront_origins.S3Origin(bucket, {
-                    originAccessIdentity,
-                }),
+                origin: s3Origin,
                 edgeLambdas: [
                     {
                         functionVersion: redirectFunction.currentVersion,
@@ -53,11 +60,11 @@ export class InfrastructureStack extends cdk.Stack {
                 viewerProtocolPolicy:
                     cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
             },
-            certificate: certificate,
-            domainNames: [
-                "twilight-imperium-tools.com",
-                "*.twilight-imperium-tools.com",
-            ],
+            additionalBehaviors: {
+                "/assets/*": {
+                    origin: s3Origin,
+                },
+            },
         });
 
         new cdk.CfnOutput(this, "DistributionDomainName", {
